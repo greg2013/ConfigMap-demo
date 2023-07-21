@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-test-pod
+  namespace: argocd-demo
+spec:
+  containers:
+    - name: busybox-container
+      image: registry.k8s.io/busybox
+      command: ["/bin/sh", "-c", "ls /etc/config/properties && sleep 36000"]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config/properties
+  volumes:
+    - name: config-volume
+      configMap:
+        name: config-demo
+        optional: true # mark the source ConfigMap as optional
+  restartPolicy: Never
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-demo
+  namespace: argocd-demo
+data:
+  single.properties: |-
+    hello=world
+  multiple.properties: |-
+    property.1=value-1
+    property.2=value-2
+    property.3=value-3
