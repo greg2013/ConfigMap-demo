@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-demo
+  namespace: argocd-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cm-demo
+  template:
+    metadata:
+      labels:
+        app: cm-demo
+    spec:
+      containers:
+        - name: demo-pod
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config/properties
+      volumes:
+        - name: config-volume
+          configMap:
+            name: config-demo
+            optional: true # mark the source ConfigMap as optional
