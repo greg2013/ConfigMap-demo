@@ -6,8 +6,9 @@ metadata:
 spec:
   containers:
     - name: busybox-container
-      image: registry.k8s.io/busybox
-      command: ["/bin/sh", "-c", "ls /etc/config/properties && sleep 36000"]
+      image: nginx:1.25-alpine3.17-slim
+      #image: registry.k8s.io/busybox
+      #command: ["/bin/sh", "-c", "ls /etc/config/properties && sleep 36000"]
       volumeMounts:
       - name: config-volume
         mountPath: /etc/config/properties
