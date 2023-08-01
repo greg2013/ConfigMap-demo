@@ -1,5 +1,5 @@
 image:
-  repository: nginx
-  tag: 1.25-alpine3.17-slim
+  repository: httpd
+  tag: 2.4-alpine3.18
 
 replicas: 2
