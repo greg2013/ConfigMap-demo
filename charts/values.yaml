@@ -1,0 +1,5 @@
+image:
+  repository: httpd
+  tag: 2.4-alpine3.18
+
+replicas: 2
